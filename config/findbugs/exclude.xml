@@ -1,0 +1,13 @@
+<FindBugsFilter>
+    <Match>
+        <Or>
+            <Bug code="IMC"/>
+            <Bug code="EXS"/>
+            <Bug code="WEM"/>
+            <Bug code="Dm"/>
+            <Bug code="SECPTI"/>
+            <Bug code="AI"/>
+            <Bug code="OPM"/>
+        </Or>
+    </Match>
+</FindBugsFilter>

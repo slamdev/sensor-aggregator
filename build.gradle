@@ -1,0 +1,89 @@
+plugins {
+    id 'idea'
+    id 'application'
+    id 'java'
+    id 'pmd'
+    id 'checkstyle'
+    id 'findbugs'
+    id 'com.github.johnrengelman.shadow' version '2.0.2'
+}
+
+group 'com.github.slamdev'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+mainClassName = 'com.github.slamdev.sensor.aggregator.Application'
+
+jar.enabled = false
+
+assemble.dependsOn shadowJar
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    testImplementation 'org.mockito:mockito-core:2.15.0'
+    testImplementation 'org.assertj:assertj-core:3.9.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testImplementation 'name.falgout.jeffrey.testing.junit5:mockito-extension:1.0.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    findbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.2.0'
+    findbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
+    findbugsPlugins 'com.digitalreasoning.sdp:findbugs-extensions-drs:1.1.0'
+    checkstyle 'com.thomasjensen.checkstyle.addons:checkstyle-addons:5.2.0'
+    checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.28.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    jcenter()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation' << '-Werror'
+}
+
+pmd {
+    toolVersion = '6.1.0'
+    ignoreFailures = false
+    consoleOutput = false
+    ruleSetFiles = files('config/pmd/ruleSet.xml')
+    ruleSets = []
+}
+
+checkstyle {
+    toolVersion = '8.8'
+    ignoreFailures = false
+    showViolations = false
+}
+
+findbugs {
+    toolVersion = '3.0.1'
+    ignoreFailures = false
+    effort = 'max'
+    reportLevel = 'low'
+    excludeFilter = file('config/findbugs/exclude.xml')
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+task preloadDependencies {
+    doLast {
+        configurations.each {
+            try {
+                it.resolve()
+            } catch (ignored) {
+            }
+        }
+    }
+}
