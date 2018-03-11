@@ -1,5 +1,7 @@
 # Sensor Aggregator [![Build Status](https://travis-ci.org/slamdev/sensor-aggregator.svg?branch=master)](https://travis-ci.org/slamdev/sensor-aggregator)
 
+[Alternative Go implementation](https://github.com/slamdev/aggregator)
+
 ## Run
 
 Prerequisites:
