@@ -2,6 +2,8 @@
 
 [Alternative Go implementation](https://github.com/slamdev/aggregator)
 
+[Alternative JavaScript implementation](https://github.com/slamdev/aggregator-js)
+
 ## Run
 
 Prerequisites:
