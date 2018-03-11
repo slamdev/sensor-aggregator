@@ -36,7 +36,7 @@ class MetricAggregatorTest {
         List<Metric> metrics = aggregator.aggregate(asList(
                 new Sensor(id1, 0, 0),
                 new Sensor(id2, 1, 1),
-                new Sensor(id1, 2, 2)
+                new Sensor(id1, 2, 1)
         ));
         assertThat(metrics)
                 .extracting("id")
