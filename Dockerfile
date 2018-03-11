@@ -18,8 +18,6 @@ COPY src/ src/
 
 RUN ./gradlew build
 
-RUN ls -la /etc/app/build/libs/
-
 FROM openjdk:8-jre-alpine as RUN
 
 WORKDIR /etc/app
